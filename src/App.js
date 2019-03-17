@@ -12,12 +12,11 @@ class App extends Component {
   state = { visible: false }
 
   sideBarChange = (visible) => {
-    //this.setState({ activeItem: name }); 
-    this.setState({ visible: visible })
+    this.setState({ visible: visible });
   };
 
   render() {
-    const { visible } = this.state
+    const visible = this.state.visible
     return (
       <div>
         <Header sideBarChange={this.sideBarChange}></Header>
