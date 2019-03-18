@@ -8,7 +8,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      isFormValid: true,
+      isFormValid: false,
       loginForm: {
         username: {
           value: '',
@@ -23,6 +23,23 @@ class Login extends Component {
             }
           },
           placeholder: 'Please enter username.',
+          touched: false,
+          valid: true,
+          errorMessage: ''
+        },
+        password: {
+          value: '',
+          validationRules:
+          {
+            required: {
+              message: 'Password is required.'
+            },
+            minLength: {
+              value: 3,
+              message: 'Password cannot be less than 3 characters.'
+            }
+          },
+          placeholder: 'Password',
           touched: false,
           valid: true,
           errorMessage: ''
@@ -61,14 +78,14 @@ class Login extends Component {
     });
   }
 
-  login = () => {
+  login = event => {
     this.validateForm();
 
-    const loginForm = this.state.loginForm;
-
-    if (!loginForm.isFormValid) {
+    if (!this.state.isFormValid) {
       return;
     }
+
+    const loginForm = this.state.loginForm;
 
     loginService.login({ username: loginForm.username.value, password: loginForm.password.value });
   }
@@ -102,9 +119,10 @@ class Login extends Component {
         </Form.Field>
         <Form.Field>
           <label>Password*</label>
-          <input placeholder='Password' type="password" />
-          <Message negative size='small'>
-            <p>That offer has expired</p>
+          <input name="password" type="password" placeholder={loginForm.password.placeholder}
+            value={loginForm.password.value} onChange={this.changeHandler} />
+          <Message negative size='small' hidden={!(!loginForm.password.valid && loginForm.password.touched)} >
+            <p>{loginForm.password.errorMessage}</p>
           </Message>
         </Form.Field>
         <Form.Field>

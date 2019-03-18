@@ -4,7 +4,7 @@ import authenticationService from '../../shared/services/authentication-service/
 const loginService = {
     login: async (model) => {
         // Promise is resolved and value is inside of the response const.
-        const response = await API.post(`login/${this.state.id}`, { model });
+        const response = await API.post(`login`, { model });
         authenticationService.authenticate(response);
         console.log(response);
         console.log(response.data);
