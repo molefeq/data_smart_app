@@ -4,6 +4,7 @@ import Home from '../../../components/home/home';
 import Register from '../../../components/register/register';
 import Login from '../../../components/login/login';
 import { Container, Icon, Menu, Sidebar, Grid } from 'semantic-ui-react';
+import PrivateRoute from '../../routing/private-route'
 
 class Main extends Component {
 
@@ -30,8 +31,8 @@ class Main extends Component {
           <Grid.Row className="main">
             <Grid.Column>
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/home" component={Home} />
+                <PrivateRoute exact path="/" component={Home} />
+                <PrivateRoute path="/home" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
               </Switch>
