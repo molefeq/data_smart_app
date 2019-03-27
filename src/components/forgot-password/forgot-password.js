@@ -1,28 +1,24 @@
-import React, { Component} from "react";
+import React, { Component } from 'react';
 import {Button, Form, Message, Grid, Header, Image, Segment} from "semantic-ui-react";
-import loginService from "./loginService";
-import authenticationService from "../../shared/services/authentication-service/authentication-service";
-import "./login.css";
+import "./forgot-password.css";
 import { Formik } from "formik";
 import * as Yup from 'yup'
 import { withRouter } from "react-router-dom";
+import forgotPasswordService from './forgot-password-service'
 import logo from '../../../src/assets/images/logo.png'; // Tell Webpack this JS file uses this image
+
 
 const initialValues = {
   username: "",
-  password: "",
 };
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .email("Username must be a valid email address.")
-    .required("Username is required."),
-  password: Yup.string()
-    .min(8, "Password cannot be shorted than 8 characters.")
-    .required("Password is required.")
+    .required("Username is required.")
 });
 
-class Login extends Component {
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,12 +33,11 @@ class Login extends Component {
     this.setState({
       validationMessages: []
     });
-    var response = await loginService.login(values);
+    var response = await forgotPasswordService.resetPassword(values.username);
     setSubmitting(false);
 
     if (response.status === 200) {
-      authenticationService.authenticate(response.data);
-      this.props.history.push("/home");
+      this.props.history.push("/login");
       return;
     }
 
@@ -94,7 +89,7 @@ class Login extends Component {
                       <Image src={logo} className='header-logo'/>
                   </Header>
                   <Header size="medium" color="blue">
-                      Log-in to your account
+                      Request to reset your password
                   </Header>
                   <Form size="large" onSubmit={handleSubmit}>
                       <Segment stacked>
@@ -107,26 +102,14 @@ class Login extends Component {
                               </Message>
                               ) : null}
                           </Form.Field>
-                          <Form.Field>
-                              <label>Password *</label>
-                              <input type="password" name="password" placeholder="password" value={values.password} onChange={handleChange} />
-                              {touched.password && errors.password ? (
-                              <Message negative size="small" className='validationMessage'>
-                                  <p>{errors.password}</p>
-                              </Message>
-                              ) : null}
-                          </Form.Field>
-                          <Button color="blue" fluid size="large" disabled={isSubmitting}>Login</Button>
+                          <Button color="blue" fluid size="large" disabled={isSubmitting}>Reset Password</Button>
                           {this.state.validationMessages  && this.state.validationMessages.length ? (
                           <Message negative size="small" list={this.state.validationMessages}>
                            </Message>
                           ) : null} 
                           <Segment.Group horizontal className="forget-password-container">
                               <Segment textAlign="left">
-                                  <a href="/forgot-password">Forgot Password</a>
-                              </Segment>
-                              <Segment textAlign="right">
-                                  <a href="/register">Register</a>
+                                  <a href="/login">Back To Login Page</a>
                               </Segment>
                           </Segment.Group>
                       </Segment>
@@ -140,4 +123,4 @@ class Login extends Component {
    }
 }
 
-export default withRouter(Login);
+export default withRouter(ForgotPassword);

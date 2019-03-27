@@ -1,0 +1,35 @@
+.ui.grid.login-grid {
+  box-shadow: none;
+  margin-top: 15%;
+}
+
+.ui.grid.login-grid > .row {
+  box-shadow: none;
+}
+
+.ui.stacked.segment:after {
+  border-top: none;
+}
+
+.ui.horizontal.segments.forget-password-container {
+  border: none;
+  box-shadow: none;
+}
+
+.ui.horizontal.segments.forget-password-container > .segment{
+  border: none;
+  box-shadow: none;
+}
+.ui.form .field > label {
+  text-align: left;
+  font-weight: 400;
+}
+
+.validationMessage p {
+  text-align: left;
+}
+
+.ui.header > .ui.image.header-logo {
+  width: 200px;
+  height: 200px;
+}

@@ -1,13 +1,50 @@
 const authenticationService = {
-    isAuthenticated: false,
-    authenticate(cb) {
-      this.isAuthenticated = true
-      setTimeout(cb, 100)
-    },
-    signout(cb) {
-      this.isAuthenticated = false
-      setTimeout(cb, 100)
-    }
-  };
+  isAuthenticated() {
+    const user = this.getUserDetails();
 
-  export default authenticationService;
+    return Boolean(user) && Boolean(user.token);
+  },
+  authenticate(user) {
+    localStorage.setItem("user", JSON.stringify(user));
+  },
+  getUserDetails() {
+    if (localStorage["user"] === null || localStorage["user"] === undefined) {
+      return null;
+    }
+
+    return JSON.parse(localStorage["user"]);
+  },
+  getToken() {
+    const user = this.getUserDetails();
+
+    if(!Boolean(user)){
+      return null;
+    }
+    
+    return user.token;
+  },
+  getUsername() {
+    const user = this.getUserDetails();
+
+    if(!Boolean(user)){
+      return null;
+    }
+
+    return user.username;
+  },
+  getUserId() {
+    const user = this.getUserDetails();
+
+    if(!Boolean(user)){
+      return null;
+    }
+
+    return user.id;
+  },
+  signOut() {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+};
+
+export default authenticationService;
