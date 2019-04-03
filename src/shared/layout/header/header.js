@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Menu, Icon, Image, Dropdown} from "semantic-ui-react";
 import "./header.css"; // Import regular styleshe
 import { withRouter} from "react-router-dom";
+import logo from '../../../assets/images/logo.png'; // Tell Webpack this JS file uses this image
 
 class Header extends Component {
   constructor(props) {
@@ -19,40 +20,13 @@ class Header extends Component {
           <Menu.Item name="expandable" onClick={this.handleShowClick}>
             <Icon name="align justify" />
           </Menu.Item>
-          <Menu.Item name="user">
-              <Icon name="user" />
-          </Menu.Item>
-          <Menu.Item name="devices" onClick={(e) => this.navigate('/devices')}>
-            <Icon name="wifi" />
-          </Menu.Item>
-          <Menu.Item name="messages">
-            <Icon name="mail" />
-          </Menu.Item>
-          <Menu.Item name="notifications">
-            <Icon name="bell" />
-          </Menu.Item>
         </Menu>
         <Menu className='xs-screen'>
           <Menu.Item name='home' onClick={(e) => this.navigate('/home')}>
-            <Image src='../../../assets/images/logo.png'></Image>
-          </Menu.Item>
-          <Menu.Item name='add-device' onClick={(e) => this.navigate('/adddevice')}>
-            Add Device
-          </Menu.Item>
-          <Menu.Item name='devices' onClick={(e) => this.navigate('/devices')}>
-            Devices
-          </Menu.Item>
-          <Menu.Item name='buy-data' onClick={(e) => this.navigate('/buydata')}>
-            Buy Data
+            <Image src={logo}></Image>
           </Menu.Item>
           
         <Menu.Menu position='right'>
-          <Menu.Item name='notifications' link={true} onClick={(e) => this.navigate('/notifications')}>
-            <Icon name="bell" />
-          </Menu.Item>
-          <Menu.Item name="messages" link={true} onClick={(e) => this.navigate('/messages')}>
-            <Icon name="mail" />
-          </Menu.Item>
           <Menu.Item name="user" link={true}>
             <Dropdown item icon='user'>
               <Dropdown.Menu> 

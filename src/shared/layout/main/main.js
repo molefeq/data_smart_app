@@ -15,8 +15,7 @@ import './main.css'
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.goToAddDevice = this.goToAddDevice.bind(this);
-    this.goToBuyData = this.goToBuyData.bind(this);
+    this.goToHome = this.goToHome.bind(this);
     this.logOut = this.logOut.bind(this);
   };
 
@@ -24,14 +23,9 @@ class Main extends Component {
     this.props.sideBarChange(false);
   };
 
-  goToAddDevice() {
+  goToHome() {
     this.props.sideBarChange(false);
-    this.props.history.push('/adddevice');
-  }
-
-  goToBuyData() {
-    this.props.sideBarChange(false);
-    this.props.history.push('/buydata');
+    this.props.history.push('/home');
   }
 
   logOut() {
@@ -45,11 +39,8 @@ class Main extends Component {
     return (
       <Sidebar.Pushable className="page">
         <Sidebar as={Menu} animation="overlay" icon="labeled" inverted onHide={this.handleSidebarHide} vertical visible={visible} width="thin">
-          <Menu.Item as="a" onClick={this.goToAddDevice} className={'left-sidebar'}>
-            Add Device
-          </Menu.Item>
-          <Menu.Item as="a" onClick={this.goToBuyData} className={'left-sidebar'}>
-            Buy Data
+          <Menu.Item as="a" onClick={this.goToHome} className={'left-sidebar'}>
+            Home
           </Menu.Item>
           <Menu.Item as="a" onClick={this.logOut} className={'left-sidebar'}>
             Sign Out
